@@ -39,7 +39,7 @@ body{
 }
 
 h1{
-    font-size:40px;
+    font-size:38px;
     margin-bottom:15px;
 }
 
@@ -53,6 +53,18 @@ h1{
     line-height:1.7;
     font-size:20px;
     min-height:150px;
+}
+
+/* BOTÃO MÚSICA */
+#playButton{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff1e6a;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
 }
 
 /* CORAÇÕES */
@@ -82,6 +94,8 @@ h1{
         <h1>Richard ❤️ Tays Damasceno</h1>
         <div id="contador"></div>
         <div class="mensagem" id="mensagem"></div>
+
+        <button id="playButton" onclick="tocarMusica()">Tocar nossa música ❤️</button>
     </div>
 
     <audio id="musica" src="musica.mp3" loop></audio>
@@ -95,15 +109,15 @@ var senha = prompt("Digite a senha para entrar:");
 
 if(senha === "0501"){
     document.getElementById("site").style.display="block";
-    
-    // Toca a música após interação
-    var musica = document.getElementById("musica");
-    musica.play().catch(function(error){
-        console.log("Autoplay bloqueado");
-    });
-
 }else{
     document.body.innerHTML="<h1 style='color:white;text-align:center;margin-top:40vh;'>Acesso negado 💔</h1>";
+}
+
+/* FUNÇÃO TOCAR MÚSICA */
+function tocarMusica(){
+    var musica = document.getElementById("musica");
+    musica.play();
+    document.getElementById("playButton").style.display="none";
 }
 
 /* CONTADOR */
