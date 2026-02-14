@@ -19,6 +19,7 @@ body {
     overflow: hidden;
     color: white;
     background: black;
+    text-align: center;
 }
 
 /* ==================== FUNDO ==================== */
@@ -38,7 +39,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
 }
 
 /* ==================== QUADRO CENTRAL ==================== */
@@ -51,6 +51,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
     position: relative;
+    margin: auto;
 }
 
 .frame img {
@@ -64,7 +65,7 @@ body {
     opacity: 1;
 }
 
-/* ==================== AMPULHETA COM PARTÍCULAS ==================== */
+/* ==================== AMPULHETA ==================== */
 .hourglass-wrapper {
     position: absolute;
     bottom: 15px;
@@ -84,7 +85,6 @@ body {
     background: rgba(0,0,0,0.1);
 }
 
-/* AREIA SUPERIOR */
 .sand-top {
     position: absolute;
     top: 0;
@@ -96,7 +96,6 @@ body {
     border-radius: 10px;
 }
 
-/* CANAL DE AREIA */
 .sand-stream {
     position: absolute;
     top: 40px;
@@ -107,7 +106,6 @@ body {
     transform: translateX(-50%);
 }
 
-/* AREIA INFERIOR */
 .sand-bottom {
     position: absolute;
     bottom: 0;
@@ -119,7 +117,6 @@ body {
     border-radius: 10px;
 }
 
-/* PARTICULAS DE AREIA */
 .particle {
     position: absolute;
     width: 2px;
@@ -132,8 +129,20 @@ body {
 .timer {
     margin-top: 20px;
     font-size: 18px;
-    letter-spacing: 2px;
-    opacity: 0.9;
+    letter-spacing: 1px;
+    opacity: 0.95;
+}
+
+/* ==================== MENSAGEM ==================== */
+.message {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    width: 90%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ==================== BOTÃO DE MÚSICA ==================== */
@@ -157,6 +166,8 @@ body {
 @media (max-width: 480px) {
     .frame { width: 260px; height: 360px; }
     .hourglass-wrapper { width: 40px; height: 70px; }
+    .timer { font-size: 14px; }
+    .message { font-size: 14px; }
 }
 </style>
 </head>
@@ -186,6 +197,11 @@ body {
     <!-- TIMER -->
     <div class="timer" id="timer"></div>
 
+    <!-- MENSAGEM ABAIXO DO TIMER -->
+    <div class="message" id="message">
+        Cada segundo com você é especial. 💖 Te amo infinitamente!
+    </div>
+
 </div>
 
 <!-- BOTÃO DE MÚSICA -->
@@ -206,7 +222,7 @@ const slide2 = document.getElementById("slide2");
 
 setInterval(() => {
     index = (index + 1) % images.length;
-    if(slide1.style.opacity == "1"){
+    if(slide1.style.opacity=="1"){
         slide2.src = images[index]; slide2.style.opacity = 1; slide1.style.opacity = 0;
     } else {
         slide1.src = images[index]; slide1.style.opacity = 1; slide2.style.opacity = 0;
@@ -214,33 +230,41 @@ setInterval(() => {
     background.style.background = `url('${images[index]}') center/cover no-repeat`;
 }, 5000);
 
-/* ==================== TIMER ==================== */
+/* ==================== TIMER DETALHADO ==================== */
 const startDate = new Date("2025-01-05T00:00:00");
+
 function updateTimer() {
     const now = new Date();
-    const diff = now - startDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    document.getElementById("timer").innerHTML = `${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
+    let diff = now - startDate;
+
+    // Calcular anos, meses, dias aproximados
+    let years = Math.floor(diff / (1000*60*60*24*365));
+    diff -= years * (1000*60*60*24*365);
+    let months = Math.floor(diff / (1000*60*60*24*30));
+    diff -= months * (1000*60*60*24*30);
+    let days = Math.floor(diff / (1000*60*60*24));
+    let hours = Math.floor((diff / (1000*60*60)) % 24);
+    let minutes = Math.floor((diff / (1000*60)) % 60);
+    let seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerHTML = 
+        `${years} anos • ${months} meses • ${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
 }
 setInterval(updateTimer, 1000);
 
 /* ==================== MÚSICA ==================== */
 const music = document.getElementById("bg-music");
 let isPlaying = false;
-function toggleMusic() { isPlaying ? music.pause() : music.play(); isPlaying = !isPlaying; }
+function toggleMusic() { isPlaying ? music.pause() : music.play(); isPlaying=!isPlaying; }
 
 /* ==================== AREIA EM PARTÍCULAS ==================== */
 const hourglass = document.querySelector('.hourglass');
-const sandStream = document.querySelector('.sand-stream');
 const sandBottom = document.querySelector('.sand-bottom');
 
 function createParticle() {
     const particle = document.createElement('div');
     particle.classList.add('particle');
-    particle.style.left = `${Math.random() * 4 + 28}px`; // dentro do fluxo
+    particle.style.left = `${Math.random() * 4 + 28}px`; // posição no fluxo
     particle.style.top = '40px';
     hourglass.appendChild(particle);
 
@@ -249,7 +273,7 @@ function createParticle() {
         posY += 2;
         particle.style.top = posY + 'px';
         if(posY >= 90) {
-            sandBottom.style.height = `${Math.min(40, parseInt(sandBottom.style.height||0) + 0.5)}px`;
+            sandBottom.style.height = `${Math.min(40, parseInt(sandBottom.style.height||0)+0.5)}px`;
             particle.remove();
             clearInterval(interval);
         }
