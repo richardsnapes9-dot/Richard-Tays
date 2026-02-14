@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Richard ❤️ Tays</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+    color:white;
+    background:black;
+}
+
+/* LOGIN */
+#login{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#ff1e6a,#ff4e88);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:10;
+}
+
+input{
+    padding:12px;
+    border-radius:30px;
+    border:none;
+    text-align:center;
+    margin:15px;
+    width:200px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff1e6a;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* SLIDESHOW */
+.slideshow{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position:center;
+    transition:2s ease-in-out;
+    filter:brightness(0.45);
+    z-index:-1;
+}
+
+/* CONTEÚDO */
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+#contador{
+    margin:15px;
+    font-size:20px;
+}
+
+.mensagem{
+    max-width:700px;
+    line-height:1.7;
+    font-size:20px;
+    min-height:150px;
+}
+
+/* CORAÇÕES */
+.heart{
+    position:fixed;
+    top:-10px;
+    font-size:18px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="login">
+    <h2>🔒 Richard & Tays</h2>
+    <p>Digite nossa data especial 💖</p>
+    <input type="password" id="senha" placeholder="0501">
+    <button onclick="verificarSenha()">Entrar ❤️</button>
+    <p id="erro"></p>
+</div>
+
+<div id="site" style="display:none;">
+    <div class="slideshow" id="slideshow"></div>
+
+    <div class="container">
+        <h1>Richard ❤️ Tays Damasceno</h1>
+        <div id="contador"></div>
+        <div class="mensagem" id="mensagem"></div>
+    </div>
+
+    <audio id="musica" src="musica.mp3"></audio>
+</div>
+
+<script>
+
+/* SENHA */
+function verificarSenha(){
+    if(document.getElementById("senha").value==="0501"){
+        document.getElementById("login").style.display="none";
+        document.getElementById("site").style.display="block";
+        document.getElementById("musica").play();
+        iniciarMensagem();
+    } else {
+        document.getElementById("erro").innerHTML="Senha incorreta 💔";
+    }
+}
+
+/* CONTADOR REAL */
+const dataNamoro=new Date("2025-01-05T00:00:00");
+
+function atualizarContador(){
+    const agora=new Date();
+    const diff=agora-dataNamoro;
+
+    const dias=Math.floor(diff/(1000*60*60*24));
+    const anos=Math.floor(dias/365);
+    const meses=Math.floor((dias%365)/30);
+
+    document.getElementById("contador").innerHTML=
+    `<b>${anos} anos, ${meses} meses e ${dias} dias ao seu lado ❤️</b>`;
+}
+
+setInterval(atualizarContador,1000);
+atualizarContador();
+
+/* SLIDESHOW */
+const imagens=["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg"];
+let index=0;
+const slide=document.getElementById("slideshow");
+
+function trocarImagem(){
+    slide.style.backgroundImage=`url('${imagens[index]}')`;
+    index=(index+1)%imagens.length;
+}
+
+setInterval(trocarImagem,6000);
+trocarImagem();
+
+/* CORAÇÕES */
+function criarCoracao(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+
+setInterval(criarCoracao,400);
+
+/* MENSAGEM DIGITANDO */
+const texto=`Tays...
+
+Desde o dia 05 de janeiro de 2025,
+minha vida nunca mais foi a mesma.
+
+Você virou meu abrigo, minha paz,
+minha melhor escolha.
+
+Eu amo seu sorriso,
+amo seu jeito,
+amo até suas manias.
+
+Se eu pudesse escolher mil vezes,
+eu escolheria você em todas.
+
+E se o mundo inteiro duvidar,
+eu ainda vou ter certeza:
+
+É você.
+Sempre foi você.
+E sempre será você. ❤️`;
+
+let i=0;
+function iniciarMensagem(){
+    const elemento=document.getElementById("mensagem");
+    const intervalo=setInterval(()=>{
+        elemento.innerHTML+=texto.charAt(i);
+        i++;
+        if(i>=texto.length){
+            clearInterval(intervalo);
+        }
+    },50);
+}
+
+</script>
+
+</body>
+</html>
