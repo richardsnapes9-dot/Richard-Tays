@@ -28,11 +28,11 @@ body {
     height: 100%;
     background: url('foto1.jpg') center/cover no-repeat;
     filter: blur(18px) brightness(0.5);
-    z-index: -1;
+    z-index: -2;
     transition: background 1.5s ease-in-out;
 }
 
-/* ==================== CONTAINER ==================== */
+/* ==================== CONTAINER PRINCIPAL ==================== */
 .container {
     position: absolute;
     top: 50%;
@@ -41,105 +41,99 @@ body {
     text-align: center;
 }
 
-/* ==================== QUADRO ==================== */
+/* ==================== QUADRO CENTRAL ==================== */
 .frame {
-    width: 340px;
-    height: 440px;
+    width: 350px;
+    height: 450px;
     border-radius: 25px;
     overflow: hidden;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
-    transition: transform 0.5s ease;
-}
-
-.frame:hover {
-    transform: scale(1.03);
+    position: relative;
 }
 
 .frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
     transition: opacity 1s ease;
+    opacity: 1;
+}
+
+/* ==================== AMPULHETA COM PARTÍCULAS ==================== */
+.hourglass-wrapper {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 110px;
+}
+
+.hourglass {
+    width: 100%;
+    height: 100%;
+    border: 2px solid white;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0,0,0,0.1);
+}
+
+/* AREIA SUPERIOR */
+.sand-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(to bottom, #f5d76e, #e6b800);
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+/* CANAL DE AREIA */
+.sand-stream {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    width: 4px;
+    height: 0;
+    background: #e6b800;
+    transform: translateX(-50%);
+}
+
+/* AREIA INFERIOR */
+.sand-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 20px;
+    height: 0;
+    background: linear-gradient(to top, #f5d76e, #e6b800);
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+/* PARTICULAS DE AREIA */
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #f5d76e;
+    border-radius: 50%;
 }
 
 /* ==================== TIMER ==================== */
 .timer {
-    margin-top: 25px;
+    margin-top: 20px;
     font-size: 18px;
     letter-spacing: 2px;
     opacity: 0.9;
-}
-
-/* ==================== AMPULHETA ==================== */
-.hourglass-wrapper {
-    margin-top: 35px;
-    display: flex;
-    justify-content: center;
-}
-
-.hourglass {
-    width: 60px;
-    height: 110px;
-    border: 2px solid white;
-    border-radius: 40px;
-    position: relative;
-    animation: rotate 12s linear infinite;
-}
-
-.sand-top,
-.sand-bottom {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 18px;
-    background: linear-gradient(to bottom, #f5d76e, #e6b800);
-    border-radius: 10px;
-}
-
-.sand-top {
-    top: 12px;
-    height: 35px;
-    animation: shrink 6s infinite alternate;
-}
-
-.sand-bottom {
-    bottom: 12px;
-    height: 15px;
-    animation: grow 6s infinite alternate;
-}
-
-.sand-stream {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 4px;
-    height: 25px;
-    background: #e6b800;
-    transform: translate(-50%, -50%);
-    animation: flow 1s linear infinite;
-}
-
-@keyframes shrink {
-    from { height: 35px; }
-    to { height: 5px; }
-}
-
-@keyframes grow {
-    from { height: 5px; }
-    to { height: 35px; }
-}
-
-@keyframes flow {
-    0% { opacity: 0.3; }
-    50% { opacity: 1; }
-    100% { opacity: 0.3; }
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 /* ==================== BOTÃO DE MÚSICA ==================== */
@@ -161,14 +155,11 @@ body {
 
 /* ==================== RESPONSIVO ==================== */
 @media (max-width: 480px) {
-    .frame {
-        width: 260px;
-        height: 360px;
-    }
+    .frame { width: 260px; height: 360px; }
+    .hourglass-wrapper { width: 40px; height: 70px; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- FUNDO -->
@@ -177,22 +168,23 @@ body {
 <!-- CONTAINER PRINCIPAL -->
 <div class="container">
 
-    <!-- QUADRO COM IMAGEM -->
+    <!-- QUADRO COM SLIDES -->
     <div class="frame">
-        <img id="slide" src="foto1.jpg" alt="Slide">
+        <img id="slide1" src="foto1.jpg" alt="Slide 1">
+        <img id="slide2" src="foto2.jpg" alt="Slide 2" style="opacity:0;">
+
+        <!-- AMPULHETA -->
+        <div class="hourglass-wrapper">
+            <div class="hourglass">
+                <div class="sand-top"></div>
+                <div class="sand-stream"></div>
+                <div class="sand-bottom"></div>
+            </div>
+        </div>
     </div>
 
     <!-- TIMER -->
     <div class="timer" id="timer"></div>
-
-    <!-- AMPULHETA -->
-    <div class="hourglass-wrapper">
-        <div class="hourglass">
-            <div class="sand-top"></div>
-            <div class="sand-stream"></div>
-            <div class="sand-bottom"></div>
-        </div>
-    </div>
 
 </div>
 
@@ -205,61 +197,66 @@ body {
 </audio>
 
 <script>
-/* ==================== SLIDES DE IMAGENS ==================== */
-const images = [
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg",
-    "foto4.jpg",
-    "foto5.jpg",
-    "foto6.jpg"
-];
-
+/* ==================== SLIDES ==================== */
+const images = ["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg","foto6.jpg"];
 let index = 0;
-const slide = document.getElementById("slide");
 const background = document.querySelector(".background");
+const slide1 = document.getElementById("slide1");
+const slide2 = document.getElementById("slide2");
 
 setInterval(() => {
-    slide.style.opacity = 0;
-    setTimeout(() => {
-        index = (index + 1) % images.length;
-        slide.src = images[index];
-        background.style.background = `url('${images[index]}') center/cover no-repeat`;
-        slide.style.opacity = 1;
-    }, 800);
+    index = (index + 1) % images.length;
+    if(slide1.style.opacity == "1"){
+        slide2.src = images[index]; slide2.style.opacity = 1; slide1.style.opacity = 0;
+    } else {
+        slide1.src = images[index]; slide1.style.opacity = 1; slide2.style.opacity = 0;
+    }
+    background.style.background = `url('${images[index]}') center/cover no-repeat`;
 }, 5000);
 
-/* ==================== TIMER DO RELACIONAMENTO ==================== */
-const startDate = new Date("2025-01-05T00:00:00"); // Data atualizada
-
+/* ==================== TIMER ==================== */
+const startDate = new Date("2025-01-05T00:00:00");
 function updateTimer() {
     const now = new Date();
     const diff = now - startDate;
-
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("timer").innerHTML =
-        `${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
+    document.getElementById("timer").innerHTML = `${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
 }
-
 setInterval(updateTimer, 1000);
 
 /* ==================== MÚSICA ==================== */
 const music = document.getElementById("bg-music");
 let isPlaying = false;
+function toggleMusic() { isPlaying ? music.pause() : music.play(); isPlaying = !isPlaying; }
 
-function toggleMusic() {
-    if (isPlaying) {
-        music.pause();
-    } else {
-        music.play();
-    }
-    isPlaying = !isPlaying;
+/* ==================== AREIA EM PARTÍCULAS ==================== */
+const hourglass = document.querySelector('.hourglass');
+const sandStream = document.querySelector('.sand-stream');
+const sandBottom = document.querySelector('.sand-bottom');
+
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = `${Math.random() * 4 + 28}px`; // dentro do fluxo
+    particle.style.top = '40px';
+    hourglass.appendChild(particle);
+
+    let posY = 40;
+    const interval = setInterval(() => {
+        posY += 2;
+        particle.style.top = posY + 'px';
+        if(posY >= 90) {
+            sandBottom.style.height = `${Math.min(40, parseInt(sandBottom.style.height||0) + 0.5)}px`;
+            particle.remove();
+            clearInterval(interval);
+        }
+    }, 30);
 }
-</script>
 
+setInterval(createParticle, 150);
+</script>
 </body>
 </html>
