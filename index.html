@@ -105,7 +105,14 @@ h1{
 </head>
 
 <body>
+<script>
+var senhaCorreta = "0501";
+var senhaDigitada = prompt("Digite a senha para entrar:");
 
+if (senhaDigitada !== senhaCorreta) {
+  document.body.innerHTML = "<h1>Acesso negado</h1>";
+}
+</script>
 <div id="login">
     <h2>🔒 Richard & Tays</h2>
     <p>Digite nossa data especial 💖</p>
