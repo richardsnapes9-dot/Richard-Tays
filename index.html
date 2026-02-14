@@ -4,187 +4,91 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nós 💖</title>
-
 <style>
 /* ==================== RESET ==================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Segoe UI', sans-serif; overflow:hidden; color:white; background:black; text-align:center;}
+
+/* ==================== TELA DE SENHA ==================== */
+#login-screen {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    display:flex; justify-content:center; align-items:center;
+    flex-direction: column; z-index:1000;
 }
 
-/* ==================== BODY ==================== */
-body {
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-    color: white;
-    background: black;
-    text-align: center;
+#login-screen h1 {margin-bottom:30px; font-size:32px; color:#f5d76e;}
+#login-screen input {
+    padding:10px 15px; border-radius:10px; border:none;
+    width:200px; margin-bottom:20px; font-size:16px; text-align:center;
 }
+#login-screen button {
+    padding:10px 20px; border-radius:10px; border:none;
+    background:#f5d76e; color:black; font-weight:bold;
+    cursor:pointer; font-size:16px;
+}
+#login-screen button:hover {background:#e6b800;}
 
 /* ==================== FUNDO ==================== */
 .background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    position: fixed; width: 100%; height: 100%;
     background: url('foto1.jpg') center/cover no-repeat;
     filter: blur(18px) brightness(0.5);
-    z-index: -2;
-    transition: background 1.5s ease-in-out;
+    z-index: -2; transition: background 1.5s ease-in-out;
 }
 
 /* ==================== CONTAINER PRINCIPAL ==================== */
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+.container {position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);}
 
 /* ==================== QUADRO CENTRAL ==================== */
-.frame {
-    width: 350px;
-    height: 450px;
-    border-radius: 25px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
-    position: relative;
-    margin: auto;
-}
-
-.frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: opacity 1s ease;
-    opacity: 1;
-}
+.frame {width:350px; height:450px; border-radius:25px; overflow:hidden; backdrop-filter:blur(10px);
+       background:rgba(255,255,255,0.1); box-shadow:0 25px 70px rgba(0,0,0,0.7); position:relative; margin:auto;}
+.frame img {width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; transition:opacity 1s ease; opacity:1;}
 
 /* ==================== AMPULHETA ==================== */
-.hourglass-wrapper {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 110px;
-}
-
-.hourglass {
-    width: 100%;
-    height: 100%;
-    border: 2px solid white;
-    border-radius: 40px;
-    position: relative;
-    overflow: hidden;
-    background: rgba(0,0,0,0.1);
-}
-
-.sand-top {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 20px;
-    height: 40px;
-    background: linear-gradient(to bottom, #f5d76e, #e6b800);
-    transform: translateX(-50%);
-    border-radius: 10px;
-}
-
-.sand-stream {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    width: 4px;
-    height: 0;
-    background: #e6b800;
-    transform: translateX(-50%);
-}
-
-.sand-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 20px;
-    height: 0;
-    background: linear-gradient(to top, #f5d76e, #e6b800);
-    transform: translateX(-50%);
-    border-radius: 10px;
-}
-
-.particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #f5d76e;
-    border-radius: 50%;
-}
+.hourglass-wrapper {position:absolute; bottom:15px; left:50%; transform:translateX(-50%); width:60px; height:110px;}
+.hourglass {width:100%; height:100%; border:2px solid white; border-radius:40px; position:relative; overflow:hidden; background:rgba(0,0,0,0.1);}
+.sand-top {position:absolute; top:0; left:50%; width:20px; height:40px; background:linear-gradient(to bottom,#f5d76e,#e6b800); transform:translateX(-50%); border-radius:10px;}
+.sand-stream {position:absolute; top:40px; left:50%; width:4px; height:0; background:#e6b800; transform:translateX(-50%);}
+.sand-bottom {position:absolute; bottom:0; left:50%; width:20px; height:0; background:linear-gradient(to top,#f5d76e,#e6b800); transform:translateX(-50%); border-radius:10px;}
+.particle {position:absolute; width:2px; height:2px; background:#f5d76e; border-radius:50%;}
 
 /* ==================== TIMER ==================== */
-.timer {
-    margin-top: 20px;
-    font-size: 18px;
-    letter-spacing: 1px;
-    opacity: 0.95;
-}
+.timer {margin-top:20px; font-size:18px; letter-spacing:1px; opacity:0.95;}
 
 /* ==================== MENSAGEM ==================== */
-.message {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #fff;
-    text-shadow: 0 0 8px rgba(0,0,0,0.7);
-    width: 90%;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
+.message {margin-top:10px; font-size:16px; color:#fff; text-shadow:0 0 8px rgba(0,0,0,0.7);
+          width:90%; max-width:400px; margin-left:auto; margin-right:auto;}
 
 /* ==================== BOTÃO DE MÚSICA ==================== */
-.music-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-}
-
-.music-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
+.music-btn {position:fixed; bottom:20px; right:20px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);
+            padding:10px 15px; border-radius:20px; cursor:pointer; backdrop-filter:blur(10px);}
+.music-btn:hover {background:rgba(255,255,255,0.3);}
 
 /* ==================== RESPONSIVO ==================== */
-@media (max-width: 480px) {
-    .frame { width: 260px; height: 360px; }
-    .hourglass-wrapper { width: 40px; height: 70px; }
-    .timer { font-size: 14px; }
-    .message { font-size: 14px; }
-}
+@media(max-width:480px){.frame{width:260px;height:360px;}.hourglass-wrapper{width:40px;height:70px;}.timer{font-size:14px;}.message{font-size:14px;}}
 </style>
 </head>
 <body>
+
+<!-- TELA DE SENHA -->
+<div id="login-screen">
+    <h1>Digite a senha 💖</h1>
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="checkPassword()">Entrar</button>
+    <p id="error" style="color:red;margin-top:10px; display:none;">Senha incorreta!</p>
+</div>
 
 <!-- FUNDO -->
 <div class="background"></div>
 
 <!-- CONTAINER PRINCIPAL -->
-<div class="container">
+<div class="container" style="display:none;" id="main-site">
 
     <!-- QUADRO COM SLIDES -->
     <div class="frame">
         <img id="slide1" src="foto1.jpg" alt="Slide 1">
         <img id="slide2" src="foto2.jpg" alt="Slide 2" style="opacity:0;">
-
-        <!-- AMPULHETA -->
         <div class="hourglass-wrapper">
             <div class="hourglass">
                 <div class="sand-top"></div>
@@ -197,7 +101,7 @@ body {
     <!-- TIMER -->
     <div class="timer" id="timer"></div>
 
-    <!-- MENSAGEM ABAIXO DO TIMER -->
+    <!-- MENSAGEM -->
     <div class="message" id="message">
         Cada segundo com você é especial. 💖 Te amo infinitamente!
     </div>
@@ -206,13 +110,21 @@ body {
 
 <!-- BOTÃO DE MÚSICA -->
 <button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
-
-<!-- ÁUDIO -->
-<audio id="bg-music" loop>
-    <source src="musica.mp3" type="audio/mpeg">
-</audio>
+<audio id="bg-music" loop><source src="musica.mp3" type="audio/mpeg"></audio>
 
 <script>
+/* ==================== SENHA ==================== */
+const correctPassword = "05012026"; // aqui você coloca sua senha
+function checkPassword(){
+    const input = document.getElementById("password").value;
+    if(input === correctPassword){
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("main-site").style.display = "block";
+    } else {
+        document.getElementById("error").style.display = "block";
+    }
+}
+
 /* ==================== SLIDES ==================== */
 const images = ["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg","foto6.jpg"];
 let index = 0;
@@ -220,67 +132,53 @@ const background = document.querySelector(".background");
 const slide1 = document.getElementById("slide1");
 const slide2 = document.getElementById("slide2");
 
-setInterval(() => {
-    index = (index + 1) % images.length;
-    if(slide1.style.opacity=="1"){
-        slide2.src = images[index]; slide2.style.opacity = 1; slide1.style.opacity = 0;
-    } else {
-        slide1.src = images[index]; slide1.style.opacity = 1; slide2.style.opacity = 0;
-    }
-    background.style.background = `url('${images[index]}') center/cover no-repeat`;
-}, 5000);
+setInterval(()=>{
+    index = (index+1)%images.length;
+    if(slide1.style.opacity=="1"){slide2.src=images[index]; slide2.style.opacity=1; slide1.style.opacity=0;}
+    else{slide1.src=images[index]; slide1.style.opacity=1; slide2.style.opacity=0;}
+    background.style.background=`url('${images[index]}') center/cover no-repeat`;
+},5000);
 
 /* ==================== TIMER DETALHADO ==================== */
 const startDate = new Date("2025-01-05T00:00:00");
-
-function updateTimer() {
+function updateTimer(){
     const now = new Date();
     let diff = now - startDate;
-
-    // Calcular anos, meses, dias aproximados
-    let years = Math.floor(diff / (1000*60*60*24*365));
-    diff -= years * (1000*60*60*24*365);
-    let months = Math.floor(diff / (1000*60*60*24*30));
-    diff -= months * (1000*60*60*24*30);
-    let days = Math.floor(diff / (1000*60*60*24));
-    let hours = Math.floor((diff / (1000*60*60)) % 24);
-    let minutes = Math.floor((diff / (1000*60)) % 60);
-    let seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("timer").innerHTML = 
+    let years = Math.floor(diff/(1000*60*60*24*365));
+    diff -= years*(1000*60*60*24*365);
+    let months = Math.floor(diff/(1000*60*60*24*30));
+    diff -= months*(1000*60*60*24*30);
+    let days = Math.floor(diff/(1000*60*60*24));
+    let hours = Math.floor((diff/(1000*60*60))%24);
+    let minutes = Math.floor((diff/(1000*60))%60);
+    let seconds = Math.floor((diff/1000)%60);
+    document.getElementById("timer").innerHTML=
         `${years} anos • ${months} meses • ${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
 }
-setInterval(updateTimer, 1000);
+setInterval(updateTimer,1000);
 
 /* ==================== MÚSICA ==================== */
 const music = document.getElementById("bg-music");
-let isPlaying = false;
-function toggleMusic() { isPlaying ? music.pause() : music.play(); isPlaying=!isPlaying; }
+let isPlaying=false;
+function toggleMusic(){isPlaying?music.pause():music.play();isPlaying=!isPlaying;}
 
 /* ==================== AREIA EM PARTÍCULAS ==================== */
 const hourglass = document.querySelector('.hourglass');
 const sandBottom = document.querySelector('.sand-bottom');
-
-function createParticle() {
-    const particle = document.createElement('div');
+function createParticle(){
+    const particle=document.createElement('div');
     particle.classList.add('particle');
-    particle.style.left = `${Math.random() * 4 + 28}px`; // posição no fluxo
-    particle.style.top = '40px';
+    particle.style.left=`${Math.random()*4 +28}px`;
+    particle.style.top='40px';
     hourglass.appendChild(particle);
-
-    let posY = 40;
-    const interval = setInterval(() => {
-        posY += 2;
-        particle.style.top = posY + 'px';
-        if(posY >= 90) {
-            sandBottom.style.height = `${Math.min(40, parseInt(sandBottom.style.height||0)+0.5)}px`;
-            particle.remove();
-            clearInterval(interval);
-        }
-    }, 30);
+    let posY=40;
+    const interval=setInterval(()=>{
+        posY+=2;
+        particle.style.top=posY+'px';
+        if(posY>=90){sandBottom.style.height=`${Math.min(40,parseInt(sandBottom.style.height||0)+0.5)}px`; particle.remove(); clearInterval(interval);}
+    },30);
 }
-
-setInterval(createParticle, 150);
+setInterval(createParticle,150);
 </script>
 </body>
 </html>
