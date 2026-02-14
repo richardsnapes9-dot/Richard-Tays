@@ -7,44 +7,12 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body{
     font-family:'Segoe UI',sans-serif;
-    overflow:hidden;
-    color:white;
     background:black;
-}
-
-/* LOGIN */
-#login{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:linear-gradient(135deg,#ff1e6a,#ff4e88);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    z-index:10;
-}
-
-input{
-    padding:12px;
-    border-radius:30px;
-    border:none;
-    text-align:center;
-    margin:15px;
-    width:200px;
-}
-
-button{
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
-    background:white;
-    color:#ff1e6a;
-    font-weight:bold;
-    cursor:pointer;
+    color:white;
+    overflow:hidden;
 }
 
 /* SLIDESHOW */
@@ -55,7 +23,7 @@ button{
     background-size:cover;
     background-position:center;
     transition:2s ease-in-out;
-    filter:brightness(0.45);
+    filter:brightness(0.4);
     z-index:-1;
 }
 
@@ -72,7 +40,7 @@ button{
 
 h1{
     font-size:42px;
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 
 #contador{
@@ -105,31 +73,9 @@ h1{
 </head>
 
 <body>
-    <!-- FOTOS -->
-<img src="foto1.jpg" width="300">
-<img src="foto2.jpg" width="300">
-<img src="foto3.jpg" width="300">
-<img src="foto4.jpg" width="300">
-<img src="foto5.jpg" width="300">
-<img src="foto6.jpg" width="300">
-
-<br><br>
-
-<!-- MÚSICA -->
-<audio controls autoplay loop>
-  <source src="musica.mp3" type="audio/mpeg">
-  Seu navegador não suporta áudio.
-</audio>
-<script>
-var senhaCorreta = "0501";
-var senhaDigitada = prompt("Digite a senha para entrar:");
-
-if (senhaDigitada !== senhaCorreta) {
-  document.body.innerHTML = "<h1>Acesso negado</h1>";
-
-</div>
 
 <div id="site" style="display:none;">
+
     <div class="slideshow" id="slideshow"></div>
 
     <div class="container">
@@ -138,24 +84,22 @@ if (senhaDigitada !== senhaCorreta) {
         <div class="mensagem" id="mensagem"></div>
     </div>
 
-    <audio id="musica" src="musica.mp3"></audio>
+    <audio id="musica" src="musica.mp3" autoplay loop></audio>
+
 </div>
 
 <script>
 
 /* SENHA */
-function verificarSenha(){
-    if(document.getElementById("senha").value==="0501"){
-        document.getElementById("login").style.display="none";
-        document.getElementById("site").style.display="block";
-        document.getElementById("musica").play();
-        iniciarMensagem();
-    } else {
-        document.getElementById("erro").innerHTML="Senha incorreta 💔";
-    }
+var senha = prompt("Digite a senha para entrar:");
+
+if(senha === "0501"){
+    document.getElementById("site").style.display="block";
+}else{
+    document.body.innerHTML="<h1 style='color:white;text-align:center;margin-top:40vh;'>Acesso negado 💔</h1>";
 }
 
-/* CONTADOR REAL */
+/* CONTADOR */
 const dataNamoro=new Date("2025-01-05T00:00:00");
 
 function atualizarContador(){
@@ -174,7 +118,15 @@ setInterval(atualizarContador,1000);
 atualizarContador();
 
 /* SLIDESHOW */
-const imagens=["foto1.jpg","foto2.jpg","foto3.jpg","foto4.jpg","foto5.jpg"];
+const imagens=[
+"foto1.jpg",
+"foto2.jpg",
+"foto3.jpg",
+"foto4.jpg",
+"foto5.jpg",
+"foto6.jpg"
+];
+
 let index=0;
 const slide=document.getElementById("slideshow");
 
@@ -199,7 +151,7 @@ function criarCoracao(){
 
 setInterval(criarCoracao,400);
 
-/* MENSAGEM DIGITANDO */
+/* MENSAGEM */
 const texto=`Tays...
 
 Desde o dia 05 de janeiro de 2025,
@@ -223,6 +175,7 @@ Sempre foi você.
 E sempre será você. ❤️`;
 
 let i=0;
+
 function iniciarMensagem(){
     const elemento=document.getElementById("mensagem");
     const intervalo=setInterval(()=>{
@@ -233,6 +186,8 @@ function iniciarMensagem(){
         }
     },50);
 }
+
+iniciarMensagem();
 
 </script>
 
