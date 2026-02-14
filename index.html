@@ -1,84 +1,169 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Richard ❤️ Tays</title>
+<title>Nós 💖</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-    font-family:'Segoe UI',sans-serif;
-    background:black;
-    color:white;
-    overflow:hidden;
+/* ==================== RESET ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* SLIDESHOW */
-.slideshow{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background-size:cover;
-    background-position:center;
-    transition:2s ease-in-out;
-    filter:brightness(0.4);
-    z-index:-1;
+/* ==================== BODY ==================== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    color: white;
+    background: black;
 }
 
-/* CONTEÚDO */
-.container{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px;
+/* ==================== FUNDO ==================== */
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('foto1.jpg') center/cover no-repeat;
+    filter: blur(18px) brightness(0.5);
+    z-index: -1;
+    transition: background 1.5s ease-in-out;
 }
 
-h1{
-    font-size:38px;
-    margin-bottom:15px;
+/* ==================== CONTAINER ==================== */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-#contador{
-    margin:15px;
-    font-size:20px;
+/* ==================== QUADRO ==================== */
+.frame {
+    width: 340px;
+    height: 440px;
+    border-radius: 25px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+    transition: transform 0.5s ease;
 }
 
-.mensagem{
-    max-width:700px;
-    line-height:1.7;
-    font-size:20px;
-    min-height:150px;
+.frame:hover {
+    transform: scale(1.03);
 }
 
-/* BOTÃO MÚSICA */
-#playButton{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
-    background:#ff1e6a;
-    color:white;
-    font-weight:bold;
-    font-size:16px;
+.frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease;
 }
 
-/* CORAÇÕES */
-.heart{
-    position:fixed;
-    top:-10px;
-    font-size:18px;
-    animation:fall linear forwards;
+/* ==================== TIMER ==================== */
+.timer {
+    margin-top: 25px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    opacity: 0.9;
 }
 
-@keyframes fall{
-    to{
-        transform:translateY(110vh);
-        opacity:0;
+/* ==================== AMPULHETA ==================== */
+.hourglass-wrapper {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.hourglass {
+    width: 60px;
+    height: 110px;
+    border: 2px solid white;
+    border-radius: 40px;
+    position: relative;
+    animation: rotate 12s linear infinite;
+}
+
+.sand-top,
+.sand-bottom {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    background: linear-gradient(to bottom, #f5d76e, #e6b800);
+    border-radius: 10px;
+}
+
+.sand-top {
+    top: 12px;
+    height: 35px;
+    animation: shrink 6s infinite alternate;
+}
+
+.sand-bottom {
+    bottom: 12px;
+    height: 15px;
+    animation: grow 6s infinite alternate;
+}
+
+.sand-stream {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 25px;
+    background: #e6b800;
+    transform: translate(-50%, -50%);
+    animation: flow 1s linear infinite;
+}
+
+@keyframes shrink {
+    from { height: 35px; }
+    to { height: 5px; }
+}
+
+@keyframes grow {
+    from { height: 5px; }
+    to { height: 35px; }
+}
+
+@keyframes flow {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ==================== BOTÃO DE MÚSICA ==================== */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+}
+
+.music-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 480px) {
+    .frame {
+        width: 260px;
+        height: 360px;
     }
 }
 </style>
@@ -86,131 +171,94 @@ h1{
 
 <body>
 
-<div id="site" style="display:none;">
+<!-- FUNDO -->
+<div class="background"></div>
 
-    <div class="slideshow" id="slideshow"></div>
+<!-- CONTAINER PRINCIPAL -->
+<div class="container">
 
-    <div class="container">
-        <h1>Richard ❤️ Tays Damasceno</h1>
-        <div id="contador"></div>
-        <div class="mensagem" id="mensagem"></div>
-
-        <button id="playButton" onclick="tocarMusica()">Tocar nossa música ❤️</button>
+    <!-- QUADRO COM IMAGEM -->
+    <div class="frame">
+        <img id="slide" src="foto1.jpg" alt="Slide">
     </div>
 
-    <audio id="musica" src="musica.mp3" loop></audio>
+    <!-- TIMER -->
+    <div class="timer" id="timer"></div>
+
+    <!-- AMPULHETA -->
+    <div class="hourglass-wrapper">
+        <div class="hourglass">
+            <div class="sand-top"></div>
+            <div class="sand-stream"></div>
+            <div class="sand-bottom"></div>
+        </div>
+    </div>
 
 </div>
 
+<!-- BOTÃO DE MÚSICA -->
+<button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
+
+<!-- ÁUDIO -->
+<audio id="bg-music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-
-/* SENHA */
-var senha = prompt("Digite a senha para entrar:");
-
-if(senha === "0501"){
-    document.getElementById("site").style.display="block";
-    alert("Entrou com sucesso ❤️");
-}else{
-    alert("Senha errada");
-}
-
-/* FUNÇÃO TOCAR MÚSICA */
-function tocarMusica(){
-    var musica = document.getElementById("musica");
-    musica.play();
-    document.getElementById("playButton").style.display="none";
-}
-
-/* CONTADOR */
-const dataNamoro=new Date("2025-01-05T00:00:00");
-
-function atualizarContador(){
-    const agora=new Date();
-    const diff=agora-dataNamoro;
-
-    const dias=Math.floor(diff/(1000*60*60*24));
-    const anos=Math.floor(dias/365);
-    const meses=Math.floor((dias%365)/30);
-
-    document.getElementById("contador").innerHTML=
-    `<b>${anos} anos, ${meses} meses e ${dias} dias ao seu lado ❤️</b>`;
-}
-
-setInterval(atualizarContador,1000);
-atualizarContador();
-
-/* SLIDESHOW */
-const imagens=[
-"foto1.jpg",
-"foto2.jpg",
-"foto3.jpg",
-"foto4.jpg",
-"foto5.jpg",
-"foto6.jpg"
+/* ==================== SLIDES DE IMAGENS ==================== */
+const images = [
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg",
+    "foto5.jpg",
+    "foto6.jpg"
 ];
 
-let index=0;
-const slide=document.getElementById("slideshow");
+let index = 0;
+const slide = document.getElementById("slide");
+const background = document.querySelector(".background");
 
-function trocarImagem(){
-    slide.style.backgroundImage=`url('${imagens[index]}')`;
-    index=(index+1)%imagens.length;
+setInterval(() => {
+    slide.style.opacity = 0;
+    setTimeout(() => {
+        index = (index + 1) % images.length;
+        slide.src = images[index];
+        background.style.background = `url('${images[index]}') center/cover no-repeat`;
+        slide.style.opacity = 1;
+    }, 800);
+}, 5000);
+
+/* ==================== TIMER DO RELACIONAMENTO ==================== */
+const startDate = new Date("2025-01-05T00:00:00"); // Data atualizada
+
+function updateTimer() {
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerHTML =
+        `${days} dias • ${hours}h ${minutes}m ${seconds}s 💖`;
 }
 
-setInterval(trocarImagem,5000);
-trocarImagem();
+setInterval(updateTimer, 1000);
 
-/* CORAÇÕES */
-function criarCoracao(){
-    const heart=document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
+/* ==================== MÚSICA ==================== */
+const music = document.getElementById("bg-music");
+let isPlaying = false;
+
+function toggleMusic() {
+    if (isPlaying) {
+        music.pause();
+    } else {
+        music.play();
+    }
+    isPlaying = !isPlaying;
 }
-
-setInterval(criarCoracao,400);
-
-/* MENSAGEM */
-const texto=`Tays...
-
-Desde o dia 05 de janeiro de 2025,
-minha vida nunca mais foi a mesma.
-
-Você virou meu abrigo, minha paz,
-minha melhor escolha.
-
-Eu amo seu sorriso,
-amo seu jeito,
-amo até suas manias.
-
-Se eu pudesse escolher mil vezes,
-eu escolheria você em todas.
-
-E se o mundo inteiro duvidar,
-eu ainda vou ter certeza:
-
-É você.
-Sempre foi você.
-E sempre será você. ❤️`;
-
-let i=0;
-
-function iniciarMensagem(){
-    const elemento=document.getElementById("mensagem");
-    const intervalo=setInterval(()=>{
-        elemento.innerHTML+=texto.charAt(i);
-        i++;
-        if(i>=texto.length){
-            clearInterval(intervalo);
-        }
-    },50);
-}
-
-iniciarMensagem();
-
 </script>
 
 </body>
