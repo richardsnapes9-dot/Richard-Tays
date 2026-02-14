@@ -39,7 +39,7 @@ body{
 }
 
 h1{
-    font-size:42px;
+    font-size:40px;
     margin-bottom:15px;
 }
 
@@ -84,7 +84,7 @@ h1{
         <div class="mensagem" id="mensagem"></div>
     </div>
 
-    <audio id="musica" src="musica.mp3" autoplay loop></audio>
+    <audio id="musica" src="musica.mp3" loop></audio>
 
 </div>
 
@@ -95,6 +95,13 @@ var senha = prompt("Digite a senha para entrar:");
 
 if(senha === "0501"){
     document.getElementById("site").style.display="block";
+    
+    // Toca a música após interação
+    var musica = document.getElementById("musica");
+    musica.play().catch(function(error){
+        console.log("Autoplay bloqueado");
+    });
+
 }else{
     document.body.innerHTML="<h1 style='color:white;text-align:center;margin-top:40vh;'>Acesso negado 💔</h1>";
 }
@@ -135,7 +142,7 @@ function trocarImagem(){
     index=(index+1)%imagens.length;
 }
 
-setInterval(trocarImagem,6000);
+setInterval(trocarImagem,5000);
 trocarImagem();
 
 /* CORAÇÕES */
